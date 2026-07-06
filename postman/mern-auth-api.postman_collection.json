@@ -1,0 +1,324 @@
+{
+  "info": {
+    "_postman_id": "95aba318-1ec3-4666-9dfa-2f5377b14734",
+    "name": "mern-auth-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49385006",
+    "_collection_link": "https://go.postman.co/collection/49385006-95aba318-1ec3-4666-9dfa-2f5377b14734?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "Fetch user details",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Update user details",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"Radhika2509\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/users/updateUserDetails",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "updateUserDetails"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update image files",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "uuid": "dc8e1775-a5fe-4753-bc46-f2db9c9a10d6",
+                  "src": "/C:/Users/Radhika gupta/OneDrive/Pictures/Screenshots/Screenshot 2026-07-03 230347.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/users/updateImageFiles",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "updateImageFiles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User account",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "authentication",
+      "item": [
+        {
+          "name": "User register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "fullname",
+                  "value": "Radhika Gupta",
+                  "type": "text",
+                  "uuid": "f8b3edab-e77d-4883-a3c3-d4c5c81f8c95"
+                },
+                {
+                  "key": "username",
+                  "value": "Radhika25",
+                  "type": "text",
+                  "uuid": "d68ce704-0631-4233-9ddd-1b08a91b7512"
+                },
+                {
+                  "key": "password",
+                  "value": "wtv123",
+                  "type": "text",
+                  "uuid": "4b04be67-1580-4924-8209-494cff9f9409"
+                },
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "uuid": "78cb9dce-ea2a-475b-ad4b-a4c599b00609",
+                  "src": "/C:/Users/Radhika gupta/OneDrive/Pictures/Screenshots/Screenshot 2026-06-30 172139.png"
+                },
+                {
+                  "key": "email",
+                  "value": "radhika@gmail.com",
+                  "type": "text",
+                  "uuid": "a83e04b4-a076-42a8-a159-ed2af8a51615"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/users/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"radhika25\",\r\n    \"password\": \"wtv123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/users/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/users/logout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/users/refreshToken",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "refreshToken"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Email verification",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Password Recovery",
+      "item": [
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"radhikaaaguptaaa25@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/users/forgotPassword",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "forgotPassword"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"oldPassword\" : \"wtv123\",\r\n    \"newPassword\" : \"radhika25\",\r\n    \"confNewPassword\" : \"radhika25\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/users/changePassword",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "auth",
+                "users",
+                "changePassword"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
