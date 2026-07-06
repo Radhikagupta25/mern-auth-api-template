@@ -2,14 +2,19 @@
   "name": "mern-auth-api-template",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js"
   },
   "author": "Radhika Gupta",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "mongoose": "^9.7.3",
+    "morgan": "^1.11.0",
+    "nodemon": "^3.1.14",
     "prettier": "^3.9.4"
   }
 }
