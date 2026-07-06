@@ -6,7 +6,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
 import crypto from "crypto";
 import { Resend } from 'resend';
-import { sendVerificationEmail } from "../services/email.services.js";
+import { sendVerificationEmail, sendResetPasswordEmail } from "../services/email.services.js";
 import { verifyGoogleToken } from "../services/google.services.js";
 
 const generateAccessAndRefreshToken = async (userId) => {
@@ -413,6 +413,107 @@ const googleLogin = asyncHandler(async (req, res) => {
 
 });
 
+const forgotPassword = asyncHandler(async (req, res) => {
+
+    const { email } = req.body;
+
+    if (!email) {
+        throw new ApiError(400, "Email is required");
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const resetToken = crypto
+        .randomBytes(32)
+        .toString("hex");
+
+    const hashedToken = crypto
+        .createHash("sha256")
+        .update(resetToken)
+        .digest("hex");
+
+    user.passwordResetToken = hashedToken;
+
+    user.passwordResetExpiry = new Date(
+        Date.now() + 30 * 60 * 1000
+    );
+
+    await user.save({
+        validateBeforeSave: false
+    });
+
+    await sendResetPasswordEmail(
+        user.email,
+        resetToken
+    );
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {},
+            "Password reset email sent."
+        )
+    );
+
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+
+    const { token } = req.params;
+
+    const { password, confirmPassword } = req.body;
+
+    if (password !== confirmPassword) {
+        throw new ApiError(
+            400,
+            "Passwords do not match"
+        );
+    }
+
+    const hashedToken = crypto
+        .createHash("sha256")
+        .update(token)
+        .digest("hex");
+
+    const user = await User.findOne({
+
+        passwordResetToken: hashedToken,
+
+        passwordResetExpiry: {
+            $gt: new Date()
+        }
+
+    });
+
+    if (!user) {
+        throw new ApiError(
+            400,
+            "Invalid or expired token"
+        );
+    }
+
+    user.password = password;
+
+    user.passwordResetToken = undefined;
+
+    user.passwordResetExpiry = undefined;
+
+    await user.save();
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {},
+            "Password reset successful"
+        )
+    );
+
+});
+
 export {
     registerUser,
     loginUser,
@@ -424,5 +525,7 @@ export {
     getCurrentUser,
     verifyEmail,
     deleteAccount,
-    googleLogin
+    googleLogin,
+    forgotPassword,
+    resetPassword
 }
