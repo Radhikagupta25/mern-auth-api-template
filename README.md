@@ -107,22 +107,32 @@ C --> H
 
 ---
 
-#  Folder Structure
+ 📂 Project Structure
 
 ```text
-src
-│
-├── controllers
-├── middlewares
-├── models
-├── routes
-├── services
-├── utils
-├── db
-├── app.js
-└── index.js
-```
+mern-auth-api-template
 
+│
+
+├── backend
+│   ├── public
+│   ├── src
+│   │   ├── controllers
+│   │   ├── db
+│   │   ├── middlewares
+│   │   ├── models
+│   │   ├── routes
+│   │   ├── services
+│   │   └── utils
+│   │
+│   ├── .env.sample
+│   └── package.json
+│
+├── postman
+│   └── MERN Auth API.postman_collection.json
+│
+└── README.md
+```
 ---
 
 #  Authentication Flow
@@ -269,7 +279,41 @@ npm run dev
 
 ---
 
-#  API Overview
+# API Collection
+
+A complete Postman collection is included for testing every endpoint.
+
+```
+postman/
+    mern-auth-api.postman_collection.json
+```
+
+Included requests:
+
+### Authentication
+
+- Register
+- Verify Email
+- Login
+- Logout
+- Refresh Token
+- Google Login
+
+### User
+
+- Get Current User
+- Update User Details
+- Update Avatar
+- Change Password
+- Delete Account
+### Password Recovery
+
+- Forgot Password
+- Reset Password
+
+---
+
+#  API Endpoints
 
 ### Authentication
 
