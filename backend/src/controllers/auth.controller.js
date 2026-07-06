@@ -292,6 +292,47 @@ const updateUserAvatarImage = asyncHandler(async (req, res) => {
     )
 })
 
+const deleteAccount = asyncHandler(async (req, res) => {
+
+    const { password } = req.body;
+
+    if (!password) {
+        throw new ApiError(400, "Password is required");
+    }
+
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const isPasswordCorrect = await user.isPasswordCorrect(password);
+
+    if (!isPasswordCorrect) {
+        throw new ApiError(401, "Invalid password");
+    }
+
+    await User.findByIdAndDelete(user._id);
+
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
+
+    return res
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(
+            new ApiResponse(
+                200,
+                {},
+                "Account deleted successfully"
+            )
+        );
+
+});
+
 export {
     registerUser,
     loginUser,
@@ -301,5 +342,6 @@ export {
     updateUserDetails,
     updateUserAvatarImage,
     getCurrentUser,
-    verifyEmail
+    verifyEmail,
+    deleteAccount
 }
