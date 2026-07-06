@@ -4,6 +4,9 @@ import { User } from "../models/user.auth.models.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
+import crypto from "crypto";
+import { Resend } from 'resend';
+import { sendVerificationEmail } from "../services/email.services.js";
 
 const generateAccessAndRefreshToken = async (userId) => {
     try {
@@ -61,14 +64,30 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Avatar file is required")
     }
 
-
     const user = await User.create({
         fullname,
-        avatar: avatar.url,
+        avatar: avatar.secure_url,
         email,
         password,
         username: username.toLowerCase()
     })
+
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    const hashedToken = crypto
+        .createHash("sha256")
+        .update(verificationToken)
+        .digest("hex");
+    user.emailVerificationToken = hashedToken;
+    user.emailVerificationExpiry = new Date(
+        Date.now() + 30 * 60 * 1000
+    );
+    await user.save({
+        validateBeforeSave: false
+    });
+    await sendVerificationEmail(
+        user.email,
+        verificationToken
+    );
 
     const createdUser = await User.findById(user._id).select(
         "-password -refreshToken"
@@ -78,10 +97,43 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(500, "Something went wrong while registering the user")
     }
 
+
+
     return res.status(201).json(
         new ApiResponse(200, createdUser, "User registered Successfully")
     )
 
+})
+
+const verifyEmail = asyncHandler(async (req, res) => {
+    const { token } = req.params;
+    const hashedToken = crypto
+        .createHash("sha256")
+        .update(token)
+        .digest("hex");
+    const user = await User.findOne({
+
+        emailVerificationToken: hashedToken,
+
+        emailVerificationExpiry: {
+            $gt: new Date()
+        }
+
+    });
+    if (!user) throw new ApiError(400, "User can't be verified")
+    user.isEmailVerified = true;
+    user.emailVerificationToken = undefined;
+    user.emailVerificationExpiry = undefined;
+    await user.save({
+        validateBeforeSave: false
+    });
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            user,
+            "Email verified successfully"
+        )
+    )
 })
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -100,6 +152,12 @@ const loginUser = asyncHandler(async (req, res) => {
     if (!user) throw new ApiError(404, "User not found")
     const isPasswordValid = await user.isPasswordCorrect(password)
     if (!isPasswordValid) throw new ApiError(401, "Password is incorrect")
+    if (!user.isEmailVerified) {
+        throw new ApiError(
+            401,
+            "Please verify your email first."
+        );
+    }
     const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id)
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
     const options = {
@@ -204,7 +262,7 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 })
 
 const updateUserAvatarImage = asyncHandler(async (req, res) => {
-    const { avatarLocalPath } = req.files
+    const avatarLocalPath = req.files?.avatar?.[0]?.path;
     if (!avatarLocalPath) {
         throw new ApiError(
             400,
@@ -243,4 +301,5 @@ export {
     updateUserDetails,
     updateUserAvatarImage,
     getCurrentUser,
+    verifyEmail
 }
