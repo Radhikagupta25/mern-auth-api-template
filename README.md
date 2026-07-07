@@ -12,6 +12,7 @@
   <img alt="JWT" src="https://img.shields.io/badge/Auth-JWT-orange">
   <img alt="Cloudinary" src="https://img.shields.io/badge/Cloudinary-Image%20Storage-3448C5">
   <img alt="Google OAuth" src="https://img.shields.io/badge/OAuth-Google-EA4335?logo=google">
+  <img alt="Nodemailer" src="https://img.shields.io/badge/Nodemailer-Email-0F9D58?logo=gmail">
   <img alt="Status" src="https://img.shields.io/badge/status-active-success">
 </p>
 
@@ -63,7 +64,7 @@ This template follows a modular architecture using Express, MongoDB, JWT, Cloudi
 | Password Hashing | bcrypt |
 | File Upload | Multer |
 | Image Storage | Cloudinary |
-| Email Service | Resend |
+| Email Service | Resend and nodemailer |
 | OAuth | Google OAuth |
 | Environment | dotenv |
 
@@ -86,7 +87,7 @@ E[MongoDB]
 
 F[Cloudinary]
 
-G[Resend]
+G[Resend or Nodemailer]
 
 H[Google OAuth]
 
@@ -235,23 +236,19 @@ Create a `.env` file.
 
 ```env
 PORT=
-
 MONGODB_URI=
-
+CORS_ORIGIN=
 ACCESS_TOKEN_SECRET=
 ACCESS_TOKEN_EXPIRY=
-
 REFRESH_TOKEN_SECRET=
 REFRESH_TOKEN_EXPIRY=
-
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
-
+CLOUDINARY_API_KEY=
+CLOUDINARY_CLOUD_NAME=
 RESEND_API_KEY=
-
 GOOGLE_CLIENT_ID=
-
+EMAIL_USER=
+EMAIL_PASS=
 FRONTEND_URL=
 ```
 
