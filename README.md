@@ -1,4 +1,4 @@
-# MERN Auth API Template
+# Authentication API Template
 
 <p align="center">
   <em>A production-ready authentication API template for MERN applications with JWT, Refresh Tokens, Email Verification, Google OAuth, Cloudinary uploads, and Password Recovery.</em>
@@ -180,7 +180,7 @@ C --> H
  📂 Project Structure
 
 ```text
-mern-auth-api-template
+Authentication-auth-api-template
 
 │
 
@@ -199,7 +199,7 @@ mern-auth-api-template
 │   └── package.json
 │
 ├── postman
-│   └── MERN Auth API.postman_collection.json
+│   └── Authentication API.postman_collection.json
 │
 └── README.md
 ```
@@ -328,7 +328,7 @@ FRONTEND_URL=
 ## Clone
 
 ```bash
-git clone https://github.com/Radhikagupta25/mern-auth-api-template.git
+git clone https://github.com/Radhikagupta25/Authentication-api-template.git
 ```
 
 ## Install
@@ -351,7 +351,7 @@ A complete Postman collection is included for testing every endpoint.
 
 ```
 postman/
-    mern-auth-api.postman_collection.json
+    Authentication-api.postman_collection.json
 ```
 
 Included requests:
