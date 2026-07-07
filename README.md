@@ -32,6 +32,75 @@ This template follows a modular architecture using Express, MongoDB, JWT, Cloudi
 
 ---
 
+#  API Documentation
+
+Interactive API documentation is available through **Swagger UI**.
+
+After starting the development server, open the following URL in your browser:
+
+```text
+http://localhost:${process.env.PORT}/api-docs
+```
+
+Swagger provides an interactive interface where you can:
+
+-  Explore all available API endpoints
+-  View request parameters and request body schemas
+-  Upload files directly from the browser (e.g. Avatar Upload)
+-  Authorize protected endpoints using JWT Bearer Tokens
+-  Execute API requests without using Postman
+-  Inspect response bodies and HTTP status codes
+-  View validation errors and possible API responses
+
+### Using Protected Endpoints
+
+Some endpoints require authentication.
+
+1. Login using **POST /login**.
+
+2. Copy the generated **Access Token**.
+
+3. Click the **Authorize** button located at the top-right of the Swagger UI.
+
+4. Enter the token in the following format:
+
+```text
+Bearer YOUR_ACCESS_TOKEN
+```
+
+5. Click **Authorize**.
+
+You can now access all protected endpoints directly from Swagger.
+
+---
+
+### File Upload Endpoints
+
+Endpoints such as:
+
+- `POST /register`
+- `PATCH /updateImageFiles`
+
+accept **multipart/form-data**.
+
+Swagger automatically displays a **Choose File** button, allowing you to upload images directly without using Postman.
+
+---
+
+### Local Development
+
+Ensure the backend server is running before opening Swagger.
+
+```bash
+npm run dev
+```
+
+Then visit:
+
+```text
+http://localhost:${process.env.PORT}/api-docs
+```
+
 #  Features
 
 | Feature | Status |
