@@ -1,4 +1,4 @@
-# Authentication API Template
+# Authentication Service
 
 <p align="center">
   <em>A production-ready authentication API template for MERN applications with JWT, Refresh Tokens, Email Verification, Google OAuth, Cloudinary uploads, and Password Recovery.</em>
