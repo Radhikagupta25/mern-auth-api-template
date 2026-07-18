@@ -331,16 +331,47 @@ FRONTEND_URL=
 git clone https://github.com/Radhikagupta25/Authentication-api-template.git
 ```
 
-## Install
-
+# Environment Setup
 ```bash
-npm install
+cd backend 
+cp .env.sample .env
 ```
 
-## Run
-
+# Populate .env with following environment variables: 
 ```bash
-npm run dev
+PORT=
+MONGODB_URI=
+CORS_ORIGIN=
+ACCESS_TOKEN_SECRET=
+ACCESS_TOKEN_EXPIRY=
+REFRESH_TOKEN_SECRET=
+REFRESH_TOKEN_EXPIRY=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_API_KEY=
+CLOUDINARY_CLOUD_NAME=
+RESEND_API_KEY=
+GOOGLE_CLIENT_ID=
+EMAIL_USER=
+EMAIL_PASS=
+FRONTEND_URL=
+```
+
+# Run with Docker
+Ensure you have Docker Desktop running. 
+Start the entire stack (Backend + MongoDB) with a single command:
+```bash
+docker compose up --build
+```
+
+# Accessing the API
+Once the containers are running, your API will be available at:
+```bash
+http://localhost:8000
+```
+
+You can access the interactive Swagger documentation at:
+```bash
+http://localhost:8000/api-docs
 ```
 
 ---
